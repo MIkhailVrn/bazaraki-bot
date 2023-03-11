@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-ssm": "^3.289.0",
+    "@types/aws-lambda": "^8.10.111",
+    "aws-lambda": "^1.0.7",
     "node-telegram-bot-api": "^0.61.0"
   }
 }

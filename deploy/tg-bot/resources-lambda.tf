@@ -11,8 +11,20 @@ resource "aws_lambda_function" "bazaraki_tg_bot" {
   environment {
 		variables = {
 			TG_BOT_TOKEN  = aws_ssm_parameter.tg_bot_token.name
+      DOMAIN        = aws_apigatewayv2_api.api.api_endpoint
+      PATH_KEY      = random_id.random_path.hex
 		}
 	}
+}
+
+data "aws_lambda_invocation" "set_webhook" {
+	function_name = aws_lambda_function.lambda.function_name
+
+	input = <<JSON
+  {
+  	"setWebhook": true
+  }
+  JSON
 }
 
 data "archive_file" "tg_bot_archive_zip" {
