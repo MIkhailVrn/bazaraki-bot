@@ -34,6 +34,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.289.0",
     "node-telegram-bot-api": "^0.61.0"
   }
 }

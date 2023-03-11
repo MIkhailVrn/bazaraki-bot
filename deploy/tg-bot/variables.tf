@@ -12,3 +12,8 @@ variable "tg_bot_src" {
   type    = string
   default = "../../dist/index.js"
 }
+
+variable "tg_bot_token" {
+	type = string
+	sensitive = true
+}
