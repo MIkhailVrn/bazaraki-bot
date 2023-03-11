@@ -18,7 +18,7 @@ resource "aws_lambda_function" "bazaraki_tg_bot" {
 }
 
 data "aws_lambda_invocation" "set_webhook" {
-	function_name = aws_lambda_function.lambda.function_name
+	function_name = aws_lambda_function.bazaraki_tg_bot.function_name
 
 	input = <<JSON
   {
