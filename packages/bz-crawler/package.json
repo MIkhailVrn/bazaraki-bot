@@ -1,0 +1,22 @@
+{
+  "name": "bz-crawler",
+  "version": "1.0.0",
+  "description": "Bazaraki crawler",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ssm": "^3.289.0",
+    "@types/aws-lambda": "^8.10.111",
+    "@types/jsdom": "^20.0.1",
+    "aws-lambda": "^1.0.7",
+    "jsdom": "^20.0.1",
+    "node-fetch": "^3.3.1"
+  }
+}
