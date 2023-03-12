@@ -26,6 +26,18 @@ data "aws_iam_policy_document" "bz_crawler_access_policy_document" {
       "arn:aws:ssm:eu-west-2:532571067673:parameter/bot-token"
 		]
 	}
+
+  statement {
+    effect  = "Allow"
+    actions = [
+      "dynamodb:PutItem",
+      "dynamodb:GetItem",
+      "dynamodb:DeleteItem"
+    ]
+    resources = [
+      aws_dynamodb_table.bz_crawler_last_adv.arn,
+    ]
+  }
 }
 
 resource "aws_iam_policy" "bz_crawler_access_policy" {
