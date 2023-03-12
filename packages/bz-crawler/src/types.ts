@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 export type SendCommandParams = SendTextParams | SendSetWebhookParams
 
 export type SendTextParams = {
@@ -18,6 +20,6 @@ export type LastAdvRecord = {
 
 export type LastAdvRepository = {
   get: () => Promise<string | null>
-  save: (date: Date) => Promise<void>
+  save: (date: DateTime) => Promise<void>
   remove: ({ key }: { key: string }) => Promise<void>
 }

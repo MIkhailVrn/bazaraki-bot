@@ -17,6 +17,7 @@
     "@aws-sdk/util-dynamodb": "^3.289.0",
     "@types/aws-lambda": "^8.10.111",
     "@types/jsdom": "^20.0.1",
+    "@types/luxon": "^3.2.0",
     "aws-lambda": "^1.0.7",
     "cheerio": "^1.0.0-rc.12",
     "luxon": "^3.3.0",

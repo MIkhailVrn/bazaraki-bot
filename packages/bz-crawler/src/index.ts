@@ -3,16 +3,17 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 import { sendTelegramCommand } from './tg/messages'
 import { createLastAdvRepository } from './utils'
+import { DateTime } from 'luxon'
 
 export const handler = async (event: APIGatewayEvent) => {
-  let lastAdvTime = new Date()
+  let lastAdvTime = DateTime.now()
 
   const lastAdvRepository = createLastAdvRepository()
 
-  const lastAdv = await lastAdvRepository.get()
+  const lastAdvISO = await lastAdvRepository.get()
 
-  if (lastAdv) {
-    lastAdvTime = new Date(lastAdv)
+  if (lastAdvISO) {
+    lastAdvTime = DateTime.fromISO(lastAdvISO)
   } else {
     await lastAdvRepository.save(lastAdvTime)
   }
@@ -35,11 +36,8 @@ export const handler = async (event: APIGatewayEvent) => {
     const date = dateStr?.match(/\b\d\d:\d\d\b/)
     const timeStr = date && date[0]
     const [hours, minutes] = timeStr?.split(':')
-    const advTime = new Date()
-    advTime.setHours(parseInt(hours))
-    advTime.setMinutes(parseInt(minutes))
-    advTime.setSeconds(0)
-    advTime.setMilliseconds(0)
+    const advTime = DateTime.now().setZone('Europe/Nicosia')
+    advTime.set({ hour: Number(hours), minute: Number(minutes) })
 
     if (advTime > lastAdvTime) {
       await lastAdvRepository.save(advTime)

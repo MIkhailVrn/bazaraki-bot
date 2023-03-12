@@ -5,6 +5,7 @@ import {
   DeleteItemCommand,
 } from '@aws-sdk/client-dynamodb'
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
+import { DateTime } from 'luxon'
 import { LastAdvRepository, LAST_ADV_RECORD_ID } from '../types'
 
 const TABLE_NAME = 'bz-crawler-last-adv'
@@ -12,11 +13,11 @@ const TABLE_NAME = 'bz-crawler-last-adv'
 export const createLastAdvRepository = (): LastAdvRepository => {
   const client = new DynamoDBClient({})
 
-  const save = async (date: Date) => {
+  const save = async (date: DateTime) => {
     await client.send(
       new PutItemCommand({
         TableName: TABLE_NAME,
-        Item: marshall({ id: LAST_ADV_RECORD_ID, date: date.toISOString() }),
+        Item: marshall({ id: LAST_ADV_RECORD_ID, date: date.toISO() }),
       })
     )
   }
