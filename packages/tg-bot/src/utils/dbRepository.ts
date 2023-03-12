@@ -8,7 +8,7 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 import { DateTime } from 'luxon'
 import { BotUserRepository } from '../types'
 
-const TABLE_NAME = 'bz-crawler-last-adv'
+const TABLE_NAME = 'tg-bot-users'
 
 export const createBotUserRepository = (): BotUserRepository => {
   const client = new DynamoDBClient({})
