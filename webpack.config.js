@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './packages/tg-bot/src/index.ts',
   mode: 'production',
   target: 'node',
   module: {
@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/tg-bot'),
     libraryTarget: 'commonjs',
   },
 }

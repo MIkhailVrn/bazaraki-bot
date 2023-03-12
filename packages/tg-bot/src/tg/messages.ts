@@ -1,8 +1,11 @@
 import { getValueSSM } from '../utils'
 import fetch from 'node-fetch'
+import { SendCommandParams } from '../types'
 
-// @ts-ignore
-export const sendTelegramCommand = async (url: string, params) => {
+export const sendTelegramCommand = async (
+  url: string,
+  params: SendCommandParams
+) => {
   const token = (await getValueSSM('bot-token')).Parameter.Value
 
   const res = await fetch(`https://api.telegram.org/bot${token}/${url}`, {
@@ -15,12 +18,4 @@ export const sendTelegramCommand = async (url: string, params) => {
   if (!res.ok) {
     throw new Error('Error')
   }
-  const result = await res.json()
-  // @ts-ignore
-  if (!result.ok) {
-    // @ts-ignore
-    throw new Error(result.description)
-  }
-  // @ts-ignore
-  return result.result
 }
