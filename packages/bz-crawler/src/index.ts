@@ -56,14 +56,19 @@ export const handler = async (event: APIGatewayEvent) => {
       }
       const users = await botUserRepository.getAll()
       console.log(formattedAdvTime.toISO(), ' > ', lastAdvTime.toISO())
-      await lastAdvRepository.save(advTime)
 
-      users.forEach(async (user) => {
+      // they go from top to bottom. prevent saving not the latest
+      const lastStoredInDbISO = await lastAdvRepository.get()
+      if (DateTime.fromISO(lastStoredInDbISO) < formattedAdvTime) {
+        await lastAdvRepository.save(formattedAdvTime)
+      }
+
+      for (let user of users) {
         await sendTelegramCommand('sendMessage', {
           chat_id: user,
           text: 'https://www.bazaraki.com' + link,
         })
-      })
+      }
     }
   }
 }
