@@ -1,6 +1,7 @@
 import { APIGatewayEvent } from 'aws-lambda'
 import { sendTelegramCommand } from './tg/messages'
 import { setWebhook } from './utils'
+import { createBotUserRepository } from './utils/dbRepository'
 
 export const handler = async (event: APIGatewayEvent) => {
   // @ts-ignore
@@ -14,9 +15,14 @@ export const handler = async (event: APIGatewayEvent) => {
         text,
       },
     } = update
+
+    if (text === '/start') {
+      const repository = createBotUserRepository()
+      repository.save(chat_id)
+    }
     await sendTelegramCommand('sendMessage', {
       chat_id,
-      text,
+      text: 'You will now receive updates from Bazaraki.com',
     })
   }
 }

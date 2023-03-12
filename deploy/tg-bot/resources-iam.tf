@@ -26,6 +26,18 @@ data "aws_iam_policy_document" "tg_bot_access_policy_document" {
 			aws_ssm_parameter.tg_bot_token.arn
 		]
 	}
+
+  statement {
+    effect  = "Allow"
+    actions = [
+      "dynamodb:PutItem",
+      "dynamodb:GetItem",
+      "dynamodb:DeleteItem"
+    ]
+    resources = [
+      aws_dynamodb_table.tg_bot_users.arn,
+    ]
+  }
 }
 
 resource "aws_iam_policy" "tg_bot_access_policy" {
