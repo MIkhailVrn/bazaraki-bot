@@ -23,3 +23,7 @@ export type LastAdvRepository = {
   save: (date: DateTime) => Promise<void>
   remove: ({ key }: { key: string }) => Promise<void>
 }
+
+export type BotUsersRepository = {
+  getAll: () => Promise<number[] | undefined>
+}

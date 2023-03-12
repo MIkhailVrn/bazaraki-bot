@@ -2,8 +2,9 @@ import { APIGatewayEvent } from 'aws-lambda'
 import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 import { sendTelegramCommand } from './tg/messages'
-import { createLastAdvRepository } from './utils'
+import { createBotUsersRepository, createLastAdvRepository } from './utils'
 import { DateTime } from 'luxon'
+import { BotUsersRepository } from './types'
 
 export const handler = async (event: APIGatewayEvent) => {
   let lastAdvTime = DateTime.now().setZone('Europe/Nicosia')
@@ -25,6 +26,9 @@ export const handler = async (event: APIGatewayEvent) => {
   const $ = cheerio.load(body)
   const adsContainerList = $('.announcement-container')
   const advTime = DateTime.now().setZone('Europe/Nicosia')
+
+  let botUserRepository: BotUsersRepository
+
   for (let i = 0; i < adsContainerList.length; i++) {
     const link = $(adsContainerList[i]).find('[itemprop="url"]').attr('href')
 
@@ -47,11 +51,18 @@ export const handler = async (event: APIGatewayEvent) => {
     })
 
     if (formattedAdvTime > lastAdvTime) {
+      if (!botUserRepository) {
+        botUserRepository = createBotUsersRepository()
+      }
+      const users = await botUserRepository.getAll()
       console.log(formattedAdvTime.toISO(), ' > ', lastAdvTime.toISO())
       await lastAdvRepository.save(advTime)
-      await sendTelegramCommand('sendMessage', {
-        chat_id: 148580023,
-        text: 'https://www.bazaraki.com' + link,
+
+      users.forEach(async (user) => {
+        await sendTelegramCommand('sendMessage', {
+          chat_id: user,
+          text: 'https://www.bazaraki.com' + link,
+        })
       })
     }
   }

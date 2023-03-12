@@ -40,6 +40,16 @@ data "aws_iam_policy_document" "bz_crawler_access_policy_document" {
   }
 
   statement {
+    effect  = "Allow"
+    actions = [
+      "dynamodb:Scan",
+    ]
+    resources = [
+      "arn:aws:dynamodb:eu-west-2:532571067673:table/tg-bot-users",
+    ]
+  }
+
+  statement {
     effect = "Allow"
     actions = [
       "logs:CreateLogGroup",
