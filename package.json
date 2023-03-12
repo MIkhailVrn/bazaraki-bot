@@ -1,10 +1,11 @@
 {
   "name": "bazaraki-bot",
   "version": "1.0.0",
+  "private": true,
   "description": "Bazaraki vrawler",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "cross-env FORCE_COLOR=1 lerna run build --stream"
   },
   "repository": {
     "type": "git",
@@ -16,28 +17,24 @@
     "url": "https://github.com/MIkhailVrn/bazaraki-bot/issues"
   },
   "homepage": "https://github.com/MIkhailVrn/bazaraki-bot#readme",
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@types/node-telegram-bot-api": "^0.61.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.54.1",
-    "dotenv": "^16.0.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
+    "lerna": "^6.5.1",
     "prettier": "^2.8.4",
     "ts-loader": "^9.4.2",
     "typescript": "*",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
-  },
-  "dependencies": {
-    "@aws-sdk/client-ssm": "^3.289.0",
-    "@types/aws-lambda": "^8.10.111",
-    "aws-lambda": "^1.0.7",
-    "node-fetch": "^3.3.1",
-    "node-telegram-bot-api": "^0.61.0"
   }
 }
