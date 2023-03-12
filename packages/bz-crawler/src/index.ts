@@ -1,6 +1,6 @@
 import { APIGatewayEvent } from 'aws-lambda'
 import fetch from 'node-fetch'
-import jsdom from 'jsdom'
+import cheerio from 'cheerio'
 import { sendTelegramCommand } from './tg/messages'
 
 export const handler = async (event: APIGatewayEvent) => {
@@ -11,25 +11,20 @@ export const handler = async (event: APIGatewayEvent) => {
     'https://www.bazaraki.com/car-motorbikes-boats-and-parts/cars-trucks-and-vans/?price_max=10000'
   )
   const body = await response.text()
-  const dom = new jsdom.JSDOM(body)
-  const adsContainerList = dom.window.document.getElementsByClassName(
-    'announcement-container'
-  )
+  const $ = cheerio.load(body)
+  const adsContainerList = $('.announcement-container')
   let isNewAds = false
-  for (const adsContainer of adsContainerList) {
-    const link = adsContainer
-      .querySelector('[itemprop="url"]')
-      ?.getAttribute('href')
+  for (let i = 0; i < adsContainerList.length; i++) {
+    const link = $(adsContainerList[i]).find('[itemprop="url"]').attr('href')
 
-    const dateStr = adsContainer.querySelector(
-      '.announcement-block__date'
-    )?.textContent
+    const dateStr = $(adsContainerList[i])
+      .find('.announcement-block__date')
+      .text()
     if (!dateStr?.includes('Today')) {
       continue
     }
     const date = dateStr?.match(/\b\d\d:\d\d\b/)
     const timeStr = date && date[0]
-    // @ts-ignore
     const [hours, minutes] = timeStr?.split(':')
     const adsTime = new Date()
     adsTime.setHours(parseInt(hours))

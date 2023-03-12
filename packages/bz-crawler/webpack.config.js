@@ -3,7 +3,7 @@ const baseConfig = require('../../webpack.base')
 
 module.exports = {
   ...baseConfig,
-  entry: '/src/index.ts',
+  entry: './src/index.ts',
   externals: {
     canvas: 'commonjs canvas',
   },

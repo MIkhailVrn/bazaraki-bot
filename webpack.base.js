@@ -1,7 +1,6 @@
 const path = require('path')
 
 module.exports = {
-  entry: './packages/tg-bot/src/index.ts',
   mode: 'production',
   target: 'node',
   module: {

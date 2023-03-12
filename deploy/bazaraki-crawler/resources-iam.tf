@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "bz_crawler_access_policy_document" {
 			"ssm:GetParameter",
 		]
 		resources = [
-			aws_ssm_parameter.bz_crawler_token.arn
+      "arn:aws:ssm:eu-west-2:532571067673:parameter/bot-token"
 		]
 	}
 }
@@ -36,4 +36,4 @@ resource "aws_iam_policy" "bz_crawler_access_policy" {
 resource "aws_iam_role_policy_attachment" "bz_crawler_policy_attachment" {
   role       = aws_iam_role.bz_crawler_iam_for_lambda.name
   policy_arn = aws_iam_policy.bz_crawler_access_policy.arn
-}
+} 

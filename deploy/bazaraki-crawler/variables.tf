@@ -5,15 +5,10 @@ variable "aws_region" {
 
 variable "bz_crawler_zip" {
   type    = string
-  default = "../../output/tg-bot.zip"
+  default = "../../output/bz-crawler.zip"
 }
 
 variable "bz_crawler_src" {
   type    = string
-  default = "../../dist/index.js"
-}
-
-variable "bz_crawler_token" {
-	type = string
-	sensitive = true
+  default = "../../dist/bz-crawler/index.js"
 }

@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "tg_bot_zip" {
   type    = string
-  default = "../../output/tg-bot/tg-bot.zip"
+  default = "../../output/tg-bot.zip"
 }
 
 variable "tg_bot_src" {

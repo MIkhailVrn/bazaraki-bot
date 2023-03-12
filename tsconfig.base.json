@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "es2019",
-    "jsx": "react",
+    "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,

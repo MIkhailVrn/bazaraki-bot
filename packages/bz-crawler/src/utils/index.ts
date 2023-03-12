@@ -9,10 +9,3 @@ export const getValueSSM = async (Name: string) => {
     })
   )
 }
-
-export const setWebhook = async () => {
-  const { DOMAIN, PATH_KEY } = process.env
-  await sendTelegramCommand('setWebhook', {
-    url: `${DOMAIN}/${PATH_KEY}/`,
-  })
-}
