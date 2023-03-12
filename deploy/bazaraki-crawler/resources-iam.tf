@@ -38,6 +38,17 @@ data "aws_iam_policy_document" "bz_crawler_access_policy_document" {
       aws_dynamodb_table.bz_crawler_last_adv.arn,
     ]
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [ aws_cloudwatch_log_group.bz_crawler_logs.arn ]
+  }
+    
 }
 
 resource "aws_iam_policy" "bz_crawler_access_policy" {

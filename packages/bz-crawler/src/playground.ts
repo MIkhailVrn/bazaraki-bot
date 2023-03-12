@@ -4,19 +4,12 @@ import cheerio from 'cheerio'
 import { sendTelegramCommand } from './tg/messages'
 import { createLastAdvRepository } from './utils'
 import { DateTime } from 'luxon'
-
-export const handler = async (event: APIGatewayEvent) => {
+;(async (event: APIGatewayEvent) => {
   let lastAdvTime = DateTime.now().setZone('Europe/Nicosia')
 
   const lastAdvRepository = createLastAdvRepository()
 
   const lastAdvISO = await lastAdvRepository.get()
-
-  if (lastAdvISO) {
-    lastAdvTime = DateTime.fromISO(lastAdvISO)
-  } else {
-    await lastAdvRepository.save(lastAdvTime)
-  }
 
   const response = await fetch(
     'https://www.bazaraki.com/car-motorbikes-boats-and-parts/cars-trucks-and-vans/?price_max=10000'
@@ -55,4 +48,5 @@ export const handler = async (event: APIGatewayEvent) => {
       })
     }
   }
-}
+  // @ts-ignore
+})({})

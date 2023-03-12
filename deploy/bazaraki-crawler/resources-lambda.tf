@@ -3,8 +3,12 @@ resource "aws_lambda_function" "bz_crawler" {
   function_name    = "bz-crawler"
   runtime          = "nodejs16.x"
   handler          = "index.handler"
-  timeout          = 10
+  timeout          = 120
   memory_size      = 1024
+
+  tracing_config {
+    mode = "Active"
+  }
 
   source_code_hash = data.archive_file.bz_crawler_archive_zip.output_base64sha256
 
