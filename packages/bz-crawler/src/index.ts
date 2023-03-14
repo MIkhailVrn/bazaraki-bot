@@ -20,7 +20,7 @@ export const handler = async (event: APIGatewayEvent) => {
   }
 
   const response = await fetch(
-    'https://www.bazaraki.com/car-motorbikes-boats-and-parts/cars-trucks-and-vans/?price_max=10000'
+    'https://www.bazaraki.com/car-motorbikes-boats-and-parts/cars-trucks-and-vans/gearbox---1/?price_min=4000&price_max=10000'
   )
   const body = await response.text()
   const $ = cheerio.load(body)
